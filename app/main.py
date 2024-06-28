@@ -58,7 +58,8 @@ def extract_data(text):
         item_match = re.match(r'(.*) (\d+,\d+)', line)
         if item_match:
             current_item = {'name': re.sub(r'\s+x.*', '', item_match.group(1).strip()), 'total_price': item_match.group(2)}
-            items.append(current_item)
+            if not re.match(r'PFAND \d,\d{2} EURO', current_item['name']):
+                items.append(current_item)
         quantity_match = re.search(r'x(\d+)\s+(\d+)', line)
         if quantity_match:
             current_item['quantity'] = quantity_match.group(1)
